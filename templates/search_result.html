@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vienna</title>
+        <style>
+          .d { font-family: monospace; }
+        </style>
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <form action="search.php" autocomplete="on">
+            <input type="text" name="id" placeholder="tensorflow/tensorflow" autofocus style="width:300px; height:30px; font-size:20px;">
+            <input type="submit" style="width:70px; height:30px;">
+        </form>
+        <ul class="list-group">
+            {% for rec in recs %}
+
+            <li class="list-group-item" style="width:1000px; margin:10px; border:5px solid #dddddd; padding:10px">
+                <div style="float: left; width: 5%">
+                    <img src={{rec.image}} width="30px">
+                </div> 
+
+                <div style="float: right; width: 95%">
+                    <h2 class="d" name="rec1" style="line-height: 0; font-size:15px"> 
+                        {{ rec.owner }}/{{ rec.name }}
+                    </h2>
+                    <p style="color: #C0C0C0; font-size:10px"> 
+                        {{ rec.from }}~{{ rec.to }} 
+                    </p>
+                </div>
+                
+            </li>
+
+            {% endfor %}
+        </ul>
+
+        
+
+    </body>
+</html>
