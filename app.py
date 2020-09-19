@@ -30,7 +30,19 @@ def meta_filter(rec):
     filtered_rec['from'] = date_parser(rec['createdAt'])
     filtered_rec['to'] = date_parser(rec['updatedAt'])
     
-    # popularity
+    # meta
+    filtered_rec['language'] = rec['languages']
+    if filtered_rec['language']:
+        filtered_rec['language'] = ", ".join(rec['languages'][:3])
+    
+    filtered_rec['topics'] = ", ".join(rec['repositoryTopics'][:3])
+    if filtered_rec['topics']:
+        filtered_rec['topics'] = ", ".join(filtered_rec['topics'][:3])
+        
+    
+    filtered_rec['description'] = rec['description']
+    if filtered_rec['description']: 
+        filtered_rec['description'] = filtered_rec['description'][:200]
     
     return filtered_rec
     

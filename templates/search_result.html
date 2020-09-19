@@ -30,12 +30,62 @@
 
                 <div style="float: right; width: 95%">
                     <h2 class="d" name="rec1" style="line-height: 0; font-size:15px"> 
-                        {{ rec.owner }}/{{ rec.name }}
+                        <a href="https://github.com/{{ rec.owner }}/{{ rec.name }}"> {{ rec.owner }}/{{ rec.name }} </a>
                     </h2>
                     <p style="color: #C0C0C0; font-size:10px"> 
                         {{ rec.from }}~{{ rec.to }} 
                     </p>
+
+                    <ol class="rec-repo-nums" style="width:800; margin:0px; border:0px padding:0px">
+
+                        <div style="float: left; width: 100px;">
+                            <iframe src="https://ghbtns.com/github-btn.html?user={{rec.owner}}&repo={{rec.name}}&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+                        </div>
+
+                        <div style="float: left; width: 100px">
+                            <iframe src="https://ghbtns.com/github-btn.html?user={{rec.owner}}&repo={{rec.name}}&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+                        </div>
+
+                        <div style="float: left; width: 100px">
+                            <iframe src="https://ghbtns.com/github-btn.html?user={{rec.owner}}&repo={{rec.name}}&type=fork&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+                        </div>
+
+                    </ol>
+
+                    <ol class="rec-repo-nums" style="width:800; margin:10px; border:0px padding:0px">
+
+                        <p style="font-size:10px"> 
+                            language: {{ rec.language }}
+                        </p>
+
+                        <p style="font-size:10px"> 
+                            topics: {{ rec.topics }}
+                        </p>
+
+                        <p style="font-size:10px"> 
+                            description: {{ rec.description }}
+                        </p>
+
+
+
+                    </ol>
+
                 </div>
+
+                <!-- 
+
+                <ol class="rec-repo-meta" style="width:800; margin:10px; border:0px padding:0px">
+
+                    <div style="float: left; width: 120px">
+                        <iframe src="https://ghbtns.com/github-btn.html?user={{rec.owner}}&repo={{rec.name}}&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
+                    </div>
+
+                </ol> -->
+
+
+
+
+                
                 
             </li>
 
