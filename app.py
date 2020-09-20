@@ -2,7 +2,9 @@ import json
 from random import sample 
 from dateutil.parser import parse
 
-from flask import Flask, render_template
+from elasticsearch import Elasticsearch
+from flask import Flask, render_template, request
+from flask import jsonify
 
 
 def date_parser(date):
@@ -38,20 +40,18 @@ def meta_filter(rec):
     filtered_rec['topics'] = ", ".join(rec['repositoryTopics'][:3])
     if filtered_rec['topics']:
         filtered_rec['topics'] = ", ".join(filtered_rec['topics'][:3])
-        
-    
+
     filtered_rec['description'] = rec['description']
     if filtered_rec['description']: 
         filtered_rec['description'] = filtered_rec['description'][:200]
     
     return filtered_rec
-    
 
 
 app = Flask(__name__)
 
+
 @app.route('/')
-@app.route('/index')
 def index():
     recs = rec_receiver()
     recs = [meta_filter(rec) for rec in recs]
@@ -60,8 +60,33 @@ def index():
                 'search_result.html',
                 recs=recs)
 
-@app.route('/info')
-def info():
-    return render_template('search_result.html')
 
-app.run(debug = True, port=8078)
+@app.route("/autocomplete", methods=["GET"])
+def autocomplete():
+    query = request.args.get("q", "tensor")
+    docs = Elasticsearch().search(body={
+        "query": {
+            "multi_match": {
+                "query": query,
+                "type": "bool_prefix",
+                "fields": [
+                    "name"
+                ]
+            }
+        },
+        "sort": [
+            {"stargazers": {"order": "desc"}}
+        ],
+        "from": 0,
+        "size": 10
+
+    })
+
+    res = [ doc["_source"]["owner"] + "/" + doc["_source"]["name"] for doc in
+            docs['hits']['hits']]
+
+    return jsonify(res)
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=8078)
